@@ -2,9 +2,10 @@
 ** Ciseco Range Tester https://github.com/MichalFoksa/CisecoRangeTester 
 ** 
 ** Author:  Michal FOKSA
+** Contact: source [at] michalfoksa [dot] net
 ** License: MIT License
 **
-** Ciseco Range Tester is a device to measure link quality and more importantly possible 
+** Ciseco Range Tester is Arduino device to measure link quality and more importantly possible 
 ** link length between two Ciseco RF transmitters – local (master) and remote (slave).
 ** 
 ** It is reusing built-in feature when remote node, put into a special mode, replies with 
@@ -33,6 +34,15 @@
 ** TESTED with XinoRF and SainSmart I2C 20x4 LCD Screen. Content is optimized for 16x2 
 ** screen size. so you should not have a problem using a different screen size, just 
 ** change DISPLAY_ROWS and DISPLAY_COLUMNS constants.
+**
+**  CIRCUIT WIRING
+**
+**  XinoRF   | LCD
+**  ----------------
+**  +5V      | +5V
+**  GND      | GND
+**  Analog4  | SDA
+**  Analog5  | SCL
 */
 
 #define DISPLAY_ROWS            4
@@ -87,7 +97,7 @@ LiquidCrystal_I2C lcd(DISPLAY_I2C_ADDR,En_pin,Rw_pin,Rs_pin,D4_pin,D5_pin,D6_pin
   #include"StreamLogger.h"
   // Software serial port speed.
   #define SS_SPEED 115200
-  SoftwareSerial __btSerial( /*RX*/ 4  , /*TX*/ 5  ) ;
+  SoftwareSerial __btSerial( /*RX*/ 4  , /*TX*/ 5  ) ; 
   
   // StreamLogger is a singleton class, access to its instance must be over a pointer. 
   // More on singletons is on Wikipedia: http://en.wikipedia.org/wiki/Singleton_pattern
