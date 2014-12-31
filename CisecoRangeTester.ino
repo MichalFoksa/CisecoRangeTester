@@ -196,7 +196,7 @@ void loop()
     logger->println() ; 
 #endif
       break ;
-    } // if found packate prefix
+    } // if found packet prefix
     
     // Read RSSI value
     if ( rf_buff_end - rf_buff_beg < 3 ) {
@@ -304,15 +304,15 @@ char* findPacketBegining ( const char *prefix ) {
     return NULL ;
   }
   
-  // TODO - add some meaningfull exit condition
+  // TODO - add some meaningful exit condition
   for ( int j = 0 ; j < prefixLen * 2 ; j++  ) {
       int available_data_len = rf_buff_end - rf_buff_beg ;
   
     // TODO - Move this to the readRf
-    // When lenght of available data in rf_buff in less then prefixLen, try to read additional data from radio
-    // It attemps to read data 3 times, then the function returns -2. 
+    // When length of available data in rf_buff in less then prefixLen, try to read additional data from radio
+    // It attempts to read data 1 time(s), then the function returns -2. 
     // Between retry reads it waits 10ms
-    for ( int i = 0 ; (i < 3) && (prefixLen > available_data_len) ; i++) {
+    for ( int i = 0 ; (i < 1) && (prefixLen > available_data_len) ; i++) {
       available_data_len = readRf ( prefixLen  - available_data_len ) ;
       if ( prefixLen > available_data_len ) {
 #ifdef DEBUG 
@@ -358,12 +358,12 @@ int readRf( int bytes ) {
   // Multiply number of blocks by block size
   to_read_bytes *= rf_read_block_size ;
   
-  // Chcek if there is enought space left at the end of buffer
+  // Check if there is enough space left at the end of buffer
   if ( (rf_buff + rf_buff_size) - rf_buff_end  < to_read_bytes ) {
     // If not shift valid data in buffer to left
     lShiftRfBuff() ;
     
-    // Chcek if there is enought space left after the left shift
+    // Check if there is enough space left after the left shift
     if ( (rf_buff + rf_buff_size) - rf_buff_end  < to_read_bytes ) {
       // Out of buffer ;
 #ifdef DEBUG 
@@ -377,7 +377,7 @@ int readRf( int bytes ) {
 #ifdef DEBUG
   char *prev = rf_buff_end ;
 #endif
-  // Read radio and increas rf_buff_end by actually read amount of data
+  // Read radio and increase rf_buff_end by actually read amount of data
   rf_buff_end += Serial.readBytes( rf_buff_end , to_read_bytes ) ;
   
 #ifdef DEBUG 
